@@ -26,7 +26,11 @@ export const handler: Handlers<string, USerInfo> = {
     const dataObject: USerInfo = await data.json();
     const token = await jwt.sign(dataObject, Deno.env.get("JWTSecret"));
 
-    
+        const headers = new Headers({
+      location: "/videos",
+      "Set-Cookie": `auth=${token}`,
+    });
+    return new Response("", { status: 302, headers });
     
   },
 };
